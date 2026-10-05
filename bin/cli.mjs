@@ -14,6 +14,8 @@ const TEMPLATES = path.join(PKG_ROOT, 'templates')
 const CWD = process.cwd()
 const STACKS = ['angular', 'react', 'base']
 const PKG_NAME = '@innovate/ds-frontend-lint'
+const VERSION = JSON.parse(fs.readFileSync(path.join(PKG_ROOT, 'package.json'), 'utf8')).version
+const HEADER = `ds-frontend-lint v${VERSION}: shared ESLint and Prettier standards for Innovate frontend projects`
 
 // Config files that conflict with the shared config. None of these should exist.
 const CONFLICTS = [
@@ -113,7 +115,7 @@ function check() {
     fail(`package.json needs "ds-frontend-lint": { "stack": "<${STACKS.join('|')}>" } (setup step 4).`)
   }
 
-  console.log(`\nChecking dev standards (${stack})\n`)
+  console.log(`\n${HEADER}\nChecking this project's setup (stack: ${stack})\n`)
   let problems = 0
   const ok = (m) => console.log(`  ✓ ${m}`)
   const bad = (m) => {
@@ -181,9 +183,17 @@ const cmd = process.argv[2]
 if (cmd === 'check') check()
 else {
   console.log(`
-ds-frontend-lint
+${HEADER}
 
-  check    Fail if any standard is missing or changed. Read-only. Used by "npm run verify".
+Usage:
+  npx ds-frontend-lint check
+
+check
+  -Checks that this project's lint and format setup matches the standard.
+  -Read-only: it never changes files.
+  -Runs automatically as the first part of "npm run verify".
+
+Docs: https://github.com/Innovate-Inc/ds-frontend-lint
 `)
   process.exit(cmd ? 1 : 0)
 }
