@@ -1,0 +1,22 @@
+{
+  "semi": false,
+  "singleQuote": true,
+  "tabWidth": 2,
+  "useTabs": false,
+  "printWidth": 120,
+  "trailingComma": "all",
+  "bracketSpacing": true,
+  "arrowParens": "always",
+  "endOfLine": "lf",
+  "singleAttributePerLine": true,
+  "overrides": [
+    {
+      "files": "*.html",
+      "excludeFiles": "index.html",
+      "options": {
+        "parser": "angular",
+        "htmlWhitespaceSensitivity": "ignore"
+      }
+    }
+  ]
+}

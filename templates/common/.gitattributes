@@ -1,0 +1,9 @@
+# Managed by @innovate/ds-frontend-lint. Do not edit. Change it in ds-frontend-lint instead.
+
+# Force LF line endings for all text files, regardless of OS or local Git config.
+* text=auto eol=lf
+
+# Windows-only files that need CRLF to work correctly.
+*.bat text eol=crlf
+*.cmd text eol=crlf
+*.sln text eol=crlf

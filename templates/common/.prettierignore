@@ -1,0 +1,7 @@
+# Managed by @innovate/ds-frontend-lint. Do not edit. Change it in ds-frontend-lint instead.
+node_modules
+dist
+build
+coverage
+.angular
+package-lock.json
