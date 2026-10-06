@@ -1,5 +1,9 @@
 # Changelog
 
+## v0.7.0
+
+   - Updates README update instructions.
+
 ## v0.6.0
 
    - Updates README ordering of sections.

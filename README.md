@@ -18,22 +18,22 @@ One package gives every project the same ESLint rules, Prettier settings, editor
 2. Install the new version with the full command below. **Do not only edit the tag in `package.json` and rely on `npm i`. npm can keep the old version from `package-lock.json`, and it does not tell you.**
 
 ```bash
-   npm install --save-dev github:Innovate-Inc/ds-frontend-lint#v0.6.0
+   npm install --save-dev github:Innovate-Inc/ds-frontend-lint#v0.7.0
 ```
 
-3. Run `npm run verify:ds`. It lists any standard file that no longer matches.
-4. Copy those files again (setup steps 3 and 6), and apply any `package.json` changes from the changelog. Then run:
+3. Run `npm run verify:ds`. It lists any standard file that no longer matches. If all is successful, skip to step 5.
+4. Copy or Edit those files again as instructed by the results of `verify:ds` (steps 3 - 6 in the initial install guide below). Then run:
 
    ```bash
    npm run fix
    npm run verify:ds
    ```
 
-5. Commit the changes. Use a separate PR, so the diff contains only the update.
+5. Commit the changes. Use a separate 'formatting/linting only' PR, so the diff contains only the update.
 
 ## Bringing ds-frontend-lint to a project for the first time
 
-This package, ds-frontend-lint, is designed to be installed once. The guide below
+This package is designed to be installed once in a new or existing project. The guide below
 works for React, Angular, and vanilla JS/TS. The steps are the same for all stacks, and new/existing projects can
 use the same setup.
 
@@ -48,13 +48,13 @@ Requirements: ESLint 9 support. For Angular, a version that angular-eslint 19 or
 React or vanilla:
 
 ```bash
-npm install --save-dev github:Innovate-Inc/ds-frontend-lint#v0.6.0 eslint@9 prettier typescript
+npm install --save-dev github:Innovate-Inc/ds-frontend-lint#v0.7.0 eslint@9 prettier typescript
 ```
 
 Angular (use the angular-eslint major that matches your Angular major):
 
 ```bash
-npm install --save-dev github:Innovate-Inc/ds-frontend-lint#v0.6.0 eslint@9 prettier typescript angular-eslint@<angular-major>
+npm install --save-dev github:Innovate-Inc/ds-frontend-lint#v0.7.0 eslint@9 prettier typescript angular-eslint@<angular-major>
 ```
 
 ### 2. Remove old configs
