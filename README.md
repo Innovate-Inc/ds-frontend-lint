@@ -12,9 +12,33 @@ One package gives every project the same ESLint rules, Prettier settings, editor
 | `react`   | React apps                              |
 | `base`    | Vanilla JS/TS, Node services, libraries |
 
-## Set up a project
+## Update an existing frontend project to a new version of ds-frontend-lint
 
-Do this on a branch, with no uncommitted changes.
+1. Read [CHANGELOG.md](CHANGELOG.md) for what changed.
+2. Install the new version with the full command below. **Do not only edit the tag in `package.json` and rely on `npm i`. npm can keep the old version from `package-lock.json`, and it does not tell you.**
+
+```bash
+   npm install --save-dev github:Innovate-Inc/ds-frontend-lint#v0.6.0
+```
+
+3. Run `npm run verify:ds`. It lists any standard file that no longer matches.
+4. Copy those files again (setup steps 3 and 6), and apply any `package.json` changes from the changelog. Then run:
+
+   ```bash
+   npm run fix
+   npm run verify:ds
+   ```
+
+5. Commit the changes. Use a separate PR, so the diff contains only the update.
+
+## Bringing ds-frontend-lint to a project for the first time
+
+This package, ds-frontend-lint, is designed to be installed once. The guide below
+works for React, Angular, and vanilla JS/TS. The steps are the same for all stacks, and new/existing projects can
+use the same setup.
+
+**Do these steps on a branch, with no uncommitted changes.**
+
 Commands work in any terminal (PowerShell, cmd, Git Bash, macOS, Linux). Run them from the project root.
 
 Requirements: ESLint 9 support. For Angular, a version that angular-eslint 19 or later supports.
@@ -24,13 +48,13 @@ Requirements: ESLint 9 support. For Angular, a version that angular-eslint 19 or
 React or vanilla:
 
 ```bash
-npm install --save-dev github:Innovate-Inc/ds-frontend-lint#v0.5.0 eslint@9 prettier typescript
+npm install --save-dev github:Innovate-Inc/ds-frontend-lint#v0.6.0 eslint@9 prettier typescript
 ```
 
 Angular (use the angular-eslint major that matches your Angular major):
 
 ```bash
-npm install --save-dev github:Innovate-Inc/ds-frontend-lint#v0.5.0 eslint@9 prettier typescript angular-eslint@<angular-major>
+npm install --save-dev github:Innovate-Inc/ds-frontend-lint#v0.6.0 eslint@9 prettier typescript angular-eslint@<angular-major>
 ```
 
 ### 2. Remove old configs
@@ -114,14 +138,14 @@ Fix those, or commit and fix them in follow-up work.
 
 ## Scripts
 
-| Script                 | What it does                                                                                     |
-| ---------------------- | ------------------------------------------------------------------------------------------------ |
-| `npm run fix`          | Main script. Formats every file, then fixes code problems. Shows what you must fix by hand.      |
-| `npm run lint`         | Checks JS/TS for problems and formatting                                                         |
-| `npm run lint:fix`     | Fixes what can be fixed automatically                                                            |
-| `npm run format`       | Formats every file (HTML, SCSS, JSON, Markdown too)                                              |
-| `npm run format:check` | Checks formatting without changing files                                                         |
-| `npm run verify:ds`    | Checks that the ds-frontend-lint setup is complete and unchanged. Run it after setup and updates. |
+| Script                 | What it does                                                                                       |
+| ---------------------- |----------------------------------------------------------------------------------------------------|
+| `npm run fix`          | Main script. Formats every file, then fixes code problems. Shows what you must fix by hand.        |
+| `npm run lint`         | Checks JS/TS for problems and formatting                                                           |
+| `npm run lint:fix`     | Fixes what can be fixed automatically                                                              |
+| `npm run format`       | Formats every file (HTML, SCSS, JSON, Markdown too)                                                |
+| `npm run format:check` | Checks formatting without changing files                                                           |
+| `npm run verify:ds`    | Checks that the ds-frontend-lint setup is complete and unchanged. Run it after setup and updates.  |
 
 `verify:ds` runs `ds-frontend-lint check`. It only reads files. It never changes them.
 
@@ -130,26 +154,6 @@ Fix those, or commit and fix them in follow-up work.
 - Most standard files have a "Managed by ds-frontend-lint" header. Don't edit them. `verify:ds` fails if they change.
 - Don't add rules or overrides in a project. Propose changes in this repo instead.
 - See [guides/RULES.md](guides/RULES.md) for the rules and the reasons behind them.
-
-## Update a project to a new version
-
-1. Read [CHANGELOG.md](CHANGELOG.md) for what changed.
-2. Install the new version with the full command. Note the use of the new tag at the end:
-
-```bash
-   npm install --save-dev github:Innovate-Inc/ds-frontend-lint#v0.5.0
-```
-
-   **Do not only edit the tag in `package.json`, npm can keep the old version from `package-lock.json` and fail silently.**
-3. Run `npm run verify:ds`. It lists any standard file that no longer matches.
-4. Copy those files again (setup steps 3 and 6), and apply any `package.json` changes from the changelog. Then run:
-
-   ```bash
-   npm run fix
-   npm run verify:ds
-   ```
-
-5. Commit the changes. Use a separate PR, so the diff contains only the update.
 
 ## Help us improve setup
 

@@ -1,5 +1,13 @@
 # Changelog
 
+## v0.6.0
+
+   - Updates README ordering of sections.
+
+## v0.5.0
+
+   - Updates README typo.
+
 ## v0.4.0
 
    - Updates IDE Setup guide.
