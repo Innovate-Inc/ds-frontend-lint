@@ -134,15 +134,13 @@ Fix those, or commit and fix them in follow-up work.
 ## Update a project to a new version
 
 1. Read [CHANGELOG.md](CHANGELOG.md) for what changed.
-2. In the project's `package.json`, find the `@innovate/ds-frontend-lint` line in `devDependencies`.
-   Change the tag at the end of that line to the new version. Do not change the project's own `version`.
+2. Install the new version with the full command. Note the use of the new tag at the end:
 
-   ```json
-   "@innovate/ds-frontend-lint": "github:Innovate-Inc/ds-frontend-lint#v0.2.0"
-   ```
+```bash
+   npm install --save-dev github:Innovate-Inc/ds-frontend-lint#v0.2.0
+```
 
-   Then run `npm install`.
-
+   Do not only edit the tag in `package.json`, npm can keep the old version from `package-lock.json` and fail silently.
 3. Run `npm run verify:ds`. It lists any standard file that no longer matches.
 4. Copy those files again (setup steps 3 and 6), and apply any `package.json` changes from the changelog. Then run:
 
