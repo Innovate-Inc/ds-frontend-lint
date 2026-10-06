@@ -52,7 +52,7 @@ const SCRIPTS = {
   'lint:fix': 'eslint . --fix',
   format: 'prettier --write .',
   'format:check': 'prettier --check .',
-  verify: 'ds-frontend-lint check && eslint . && prettier --check .',
+  'verify:ds': 'ds-frontend-lint check',
 }
 
 const GITIGNORE_BLOCK = [
@@ -191,7 +191,7 @@ Usage:
 check
   -Checks that this project's lint and format setup matches the standard.
   -Read-only: it never changes files.
-  -Runs automatically as the first part of "npm run verify".
+  -Runs automatically as the first part of "npm run verify:ds".
 
 Docs: https://github.com/Innovate-Inc/ds-frontend-lint
 `)

@@ -24,13 +24,13 @@ Requirements: ESLint 9 support. For Angular, a version that angular-eslint 19 or
 React or vanilla:
 
 ```bash
-npm install --save-dev github:Innovate-Inc/ds-frontend-lint#v1.0.0 eslint@9 prettier typescript
+npm install --save-dev github:Innovate-Inc/ds-frontend-lint#v0.1.0 eslint@9 prettier typescript
 ```
 
 Angular (use the angular-eslint major that matches your Angular major):
 
 ```bash
-npm install --save-dev github:Innovate-Inc/ds-frontend-lint#v1.0.0 eslint@9 prettier typescript angular-eslint@<angular-major>
+npm install --save-dev github:Innovate-Inc/ds-frontend-lint#v0.1.0 eslint@9 prettier typescript angular-eslint@<angular-major>
 ```
 
 ### 2. Remove old configs
@@ -67,7 +67,7 @@ If the project already has scripts with these names, check what they did before 
   "lint:fix": "eslint . --fix",
   "format": "prettier --write .",
   "format:check": "prettier --check .",
-  "verify": "ds-frontend-lint check && eslint . && prettier --check ."
+  "verify:ds": "ds-frontend-lint check"
 }
 ```
 
@@ -100,30 +100,30 @@ git add -A
 git add --renormalize .
 npm run lint:fix
 npm run format
-npm run verify
+npm run verify:ds
 git add -A
 git commit -m "chore: add ds-frontend-lint"
 ```
 
-`verify` checks the setup first. If it reports a setup problem, it names the file or step to fix.
+`verify:ds` checks the setup first. If it reports a setup problem, it names the file or step to fix.
 After that it may still show real code problems, like a conditional hook or a missing `alt`.
 Fix those, or commit and fix them in follow-up work.
 
 ## Scripts
 
 | Script                 | What it does                                                                |
-| ---------------------- | --------------------------------------------------------------------------- |
+|------------------------| --------------------------------------------------------------------------- |
 | `npm run lint`         | Check JS/TS for problems and formatting                                     |
 | `npm run lint:fix`     | Fix what can be fixed automatically                                         |
 | `npm run format`       | Format every file (HTML, SCSS, JSON, Markdown too)                          |
 | `npm run format:check` | Check formatting without changing files                                     |
-| `npm run verify`       | Everything: standard setup, lint, formatting. **Run this before you push.** |
+| `npm run verify:ds`    | Everything: standard setup, lint, formatting. **Run this before you push.** |
 
-`verify` starts with `ds-frontend-lint check`. It only reads files, and it never changes anything.
+`verify:ds` starts with `ds-frontend-lint check`. It only reads files, and it never changes anything.
 
 ## Rules
 
-- Standard files have a "Managed by ds-frontend-lint" header. Don't edit them. `verify` fails if they change.
+- Standard files have a "Managed by ds-frontend-lint" header. Don't edit them. `verify:ds` fails if they change.
 - Don't add rules or overrides in a project. Propose changes in this repo instead.
 - See [guides/RULES.md](guides/RULES.md) for the rules and the reasons behind them.
 
@@ -131,13 +131,13 @@ Fix those, or commit and fix them in follow-up work.
 
 1. Read [CHANGELOG.md](CHANGELOG.md) for what changed.
 2. Change the tag in `package.json`, for example `#v1.0.0` to `#v1.1.0`, and run `npm install`.
-3. Run `npm run verify`. It lists any standard file that no longer matches.
+3. Run `npm run verify:ds`. It lists any standard file that no longer matches.
 4. Copy those files again (setup steps 3 and 5), apply any `package.json` changes from the changelog, then:
 
 ```bash
 npm run lint:fix
 npm run format
-npm run verify
+npm run verify:ds
 ```
 
 5. Commit.

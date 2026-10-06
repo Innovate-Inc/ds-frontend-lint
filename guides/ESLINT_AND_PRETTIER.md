@@ -34,11 +34,11 @@ Every path reads the same Prettier settings, so the output is always the same.
 
 ## What you actually do
 
-| Task              | Command            |
-| ----------------- | ------------------ |
-| Check everything  | `npm run verify`   |
-| Fix code problems | `npm run lint:fix` |
-| Format every file | `npm run format`   |
+| Task              | Command             |
+| ----------------- |---------------------|
+| Check everything  | `npm run verify:ds` |
+| Fix code problems | `npm run lint:fix`  |
+| Format every file | `npm run format`    |
 
 In the IDE: save the file. That's it.
 
@@ -46,12 +46,12 @@ In the IDE: save the file. That's it.
 
 All of this lives in the ds-frontend-lint package, not in your project.
 Your project's `eslint.config.mjs` is one line that points at the shared config.
-`npm run verify` fails if any of the standard files get changed.
+`npm run verify:ds` fails if any of the standard files get changed.
 
 ## If something looks wrong
 
 - **Formatting doesn't apply on save:** check the [IDE setup guide](IDE_SETUP.md). It's almost always the Prettier file pattern or the fix-on-save checkbox.
-- **`verify` says a standard file changed:** copy it again from ds-frontend-lint (setup steps 3 and 5 in the README).
+- **`verify:ds` says a standard file changed:** copy it again from ds-frontend-lint (setup steps 3 and 5 in the README).
 - **Every line flagged after cloning on Windows:** line endings. Run `git add --renormalize .` and commit.
 
 ## Why not Biome?

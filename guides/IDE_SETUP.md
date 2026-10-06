@@ -31,4 +31,4 @@ Projects you already opened still need the steps once.
 1. Open a `.ts` file, add an unused variable and some messy spacing, and save.
    Spacing gets fixed, and the unused variable gets a warning.
 2. Open a `.scss` file, mess up the spacing, and save. It gets fixed.
-3. Run `npm run verify`. It should match what your editor shows.
+3. Run `npm run verify:ds`. It should match what your editor shows.

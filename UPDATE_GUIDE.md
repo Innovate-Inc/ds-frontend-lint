@@ -10,7 +10,7 @@ npm pack
 
 # in the project: install that file
 npm install --save-dev /path/to/ds-frontend-lint/innovate-ds-frontend-lint-<version>.tgz
-npm run verify
+npm run verify:ds
 ```
 
 `npm pack` builds the same file npm downloads from GitHub, so the test matches real use.
