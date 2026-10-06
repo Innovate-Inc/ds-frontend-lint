@@ -2,6 +2,8 @@
 
 The project already has the config. You only set up your editor.
 
+**Note:** Once full formatting passes are made on a project, usage of 'fix/format on save' is recommended.
+
 ## VS Code
 
 1. Open the project. VS Code asks you to install the recommended extensions. Click **Install**.
@@ -14,11 +16,11 @@ PyCharm saves these settings **per project**. To set them once for all future pr
 use **File → New Projects Setup → Settings for New Projects** and do the steps there.
 Projects you already opened still need the steps once.
 
-1. **ESLint**: Settings → Languages & Frameworks → JavaScript → Code Quality Tools → ESLint
+1. **ESLint**: File → Settings → Languages & Frameworks → JavaScript → Code Quality Tools → ESLint
    - Select **Automatic ESLint configuration**
    - Check **Run eslint --fix on save**
 
-2. **Prettier**: Settings → Languages & Frameworks → JavaScript → Prettier
+2. **Prettier**: File → Settings → Languages & Frameworks → JavaScript → Prettier
    - Select **Automatic Prettier configuration**
    - Check **Run on save**
    - File pattern: `**/*.{js,jsx,ts,tsx,html,css,scss,json,md}`
@@ -31,4 +33,3 @@ Projects you already opened still need the steps once.
 1. Open a `.ts` file, add an unused variable and some messy spacing, and save.
    Spacing gets fixed, and the unused variable gets a warning.
 2. Open a `.scss` file, mess up the spacing, and save. It gets fixed.
-3. Run `npm run verify:ds`. It should match what your editor shows.

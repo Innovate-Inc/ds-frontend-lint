@@ -1,5 +1,9 @@
 # Changelog
 
+## v0.4.0
+
+   - Updates IDE Setup guide.
+
 ## v0.3.0
 
    - Updates README with explicit instructions for the update step - users should run the full install command as described in the README.
