@@ -1,5 +1,9 @@
 # Changelog
 
+## v0.3.0
+
+   - Updates README with explicit instructions for the update step - users should run the full install command as described in the README.
+
 ## v0.2.0
 
    - New script: `fix` runs `format`, then `lint:fix`.
