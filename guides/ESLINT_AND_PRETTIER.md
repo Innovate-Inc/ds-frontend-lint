@@ -34,11 +34,12 @@ Every path reads the same Prettier settings, so the output is always the same.
 
 ## What you actually do
 
-| Task              | Command             |
-| ----------------- |---------------------|
-| Check everything  | `npm run verify:ds` |
-| Fix code problems | `npm run lint:fix`  |
-| Format every file | `npm run format`    |
+| Task               | Command             |
+|--------------------|---------------------|
+| Fix everything     | `npm run fix`       |
+| Check installation | `npm run verify:ds` |
+| Fix code problems  | `npm run lint:fix`  |
+| Format every file  | `npm run format`    |
 
 In the IDE: save the file. That's it.
 

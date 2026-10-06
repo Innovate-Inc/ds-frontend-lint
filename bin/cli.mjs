@@ -48,6 +48,7 @@ const CONFLICTS = [
 ]
 
 const SCRIPTS = {
+  fix: 'prettier --write . && eslint . --fix',
   lint: 'eslint .',
   'lint:fix': 'eslint . --fix',
   format: 'prettier --write .',
@@ -129,7 +130,7 @@ function check() {
     const theirs = read(path.join(CWD, dest))
     const ours = read(src)
 
-    const step = dest.startsWith('.vscode/') ? 'setup step 5' : 'setup step 3'
+    const step = dest.startsWith('.vscode/') ? 'setup step 6' : 'setup step 3'
     if (theirs === null) {
       bad(`${dest} is missing. Copy it from ds-frontend-lint (${step}).`)
     } else if (dest === SETTINGS_FILE) {
@@ -164,9 +165,9 @@ function check() {
   if (pkg.eslintConfig) bad('package.json "eslintConfig" should not exist. Remove it (setup step 2).')
 
   const gi = (read(path.join(CWD, '.gitignore')) ?? '').split(/\r?\n/)
-  if (gi.some((l) => GITIGNORE_BLOCKERS.includes(l.trim()))) bad('.gitignore ignores all of .vscode (setup step 5b).')
+  if (gi.some((l) => GITIGNORE_BLOCKERS.includes(l.trim()))) bad('.gitignore ignores all of .vscode (setup step 5).')
   else if (!gi.join('\n').includes(GITIGNORE_BLOCK.join('\n')))
-    bad('.gitignore is missing the VS Code lines (setup step 5b).')
+    bad('.gitignore is missing the VS Code lines (setup step 5).')
   else ok('.gitignore')
 
   if (problems) {
@@ -189,9 +190,9 @@ Usage:
   npx ds-frontend-lint check
 
 check
-  -Checks that this project's lint and format setup matches the standard.
-  -Read-only: it never changes files.
-  -Runs automatically as the first part of "npm run verify:ds".
+  - Checks that this project's lint and format setup matches the standard.
+  - Read-only: it never changes files.
+  - Run it with "npm run verify:ds".
 
 Docs: https://github.com/Innovate-Inc/ds-frontend-lint
 `)

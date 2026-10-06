@@ -1,5 +1,10 @@
 # Changelog
 
+## v0.2.0
+
+   - New script: `fix` runs `format`, then `lint:fix`.
+   - **Projects must add the `fix` script to `package.json`.** `verify:ds` fails until they do.
+
 ## v0.1.0
 
 First test release.
