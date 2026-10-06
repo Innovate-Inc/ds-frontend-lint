@@ -140,7 +140,7 @@ Fix those, or commit and fix them in follow-up work.
    npm install --save-dev github:Innovate-Inc/ds-frontend-lint#v0.4.0
 ```
 
-   Do not only edit the tag in `package.json`, npm can keep the old version from `package-lock.json` and fail silently.
+   **Do not only edit the tag in `package.json`, npm can keep the old version from `package-lock.json` and fail silently.**
 3. Run `npm run verify:ds`. It lists any standard file that no longer matches.
 4. Copy those files again (setup steps 3 and 6), and apply any `package.json` changes from the changelog. Then run:
 
