@@ -24,13 +24,13 @@ Requirements: ESLint 9 support. For Angular, a version that angular-eslint 19 or
 React or vanilla:
 
 ```bash
-npm install --save-dev github:Innovate-Inc/ds-frontend-lint#v0.4.0 eslint@9 prettier typescript
+npm install --save-dev github:Innovate-Inc/ds-frontend-lint#v0.5.0 eslint@9 prettier typescript
 ```
 
 Angular (use the angular-eslint major that matches your Angular major):
 
 ```bash
-npm install --save-dev github:Innovate-Inc/ds-frontend-lint#v0.4.0 eslint@9 prettier typescript angular-eslint@<angular-major>
+npm install --save-dev github:Innovate-Inc/ds-frontend-lint#v0.5.0 eslint@9 prettier typescript angular-eslint@<angular-major>
 ```
 
 ### 2. Remove old configs
@@ -137,7 +137,7 @@ Fix those, or commit and fix them in follow-up work.
 2. Install the new version with the full command. Note the use of the new tag at the end:
 
 ```bash
-   npm install --save-dev github:Innovate-Inc/ds-frontend-lint#v0.4.0
+   npm install --save-dev github:Innovate-Inc/ds-frontend-lint#v0.5.0
 ```
 
    **Do not only edit the tag in `package.json`, npm can keep the old version from `package-lock.json` and fail silently.**
