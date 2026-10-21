@@ -7,7 +7,7 @@
 
 import fs from 'node:fs'
 import path from 'node:path'
-import { fileURLToPath } from 'node:url'
+import { fileURLToPath, pathToFileURL } from 'node:url'
 
 const PKG_ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..')
 const TEMPLATES = path.join(PKG_ROOT, 'templates')
@@ -68,6 +68,10 @@ const GITIGNORE_BLOCKERS = ['.vscode', '.vscode/', '/.vscode', '/.vscode/']
 // This file may hold extra project settings. Only our keys are checked.
 const SETTINGS_FILE = '.vscode/settings.json'
 
+// This file belongs to the project. Its content is never compared, only checked for a valid shape.
+const OVERRIDES_FILE = 'eslint.overrides.mjs'
+const OVERRIDE_NAME = /^(migration|permanent):\s*\S/i
+
 // ---------------- helpers ----------------
 
 const read = (p) => (fs.existsSync(p) ? fs.readFileSync(p, 'utf8') : null)
@@ -106,7 +110,7 @@ function fail(msg) {
 
 // ---------------- check ----------------
 
-function check() {
+async function check() {
   const pkgText = read(path.join(CWD, 'package.json'))
   if (pkgText === null) fail('No package.json here. Run this from the project root.')
   const pkg = JSON.parse(pkgText)
@@ -133,6 +137,8 @@ function check() {
     const step = dest.startsWith('.vscode/') ? 'setup step 6' : 'setup step 3'
     if (theirs === null) {
       bad(`${dest} is missing. Copy it from ds-frontend-lint (${step}).`)
+    } else if (dest === OVERRIDES_FILE) {
+      continue // checked below
     } else if (dest === SETTINGS_FILE) {
       let current
       try {
@@ -170,6 +176,8 @@ function check() {
     bad('.gitignore is missing the VS Code lines (setup step 5).')
   else ok('.gitignore')
 
+  await checkOverrides(ok, bad)
+
   if (problems) {
     console.log(`\n✖ ${problems} problem(s). See the ds-frontend-lint README for the expected setup.\n`)
     process.exit(1)
@@ -177,11 +185,72 @@ function check() {
   console.log('\n✓ All standards in place.\n')
 }
 
+// ---------------- overrides ----------------
+
+const severity = (v) => {
+  const s = Array.isArray(v) ? v[0] : v
+  return { 0: 'off', 1: 'warn', 2: 'error' }[s] ?? s
+}
+
+const isMigration = (o) => /^migration:/i.test(o.name)
+
+// Checks the shape of eslint.overrides.mjs and lists every override, so silenced rules stay visible.
+async function checkOverrides(ok, bad) {
+  const file = path.join(CWD, OVERRIDES_FILE)
+  if (!fs.existsSync(file)) return // already reported as missing
+
+  let overrides
+  try {
+    overrides = (await import(pathToFileURL(file).href)).default
+  } catch (e) {
+    return bad(`${OVERRIDES_FILE} could not be loaded: ${e.message}`)
+  }
+  if (!Array.isArray(overrides)) return bad(`${OVERRIDES_FILE} must export an array: export default [ ... ]`)
+  if (!overrides.length) return ok(`${OVERRIDES_FILE} (no overrides)`)
+
+  let failed = false
+  const fail = (m) => {
+    failed = true
+    bad(m)
+  }
+  const lines = []
+  overrides.forEach((o, i) => {
+    const label = `${OVERRIDES_FILE} entry ${i + 1}`
+    if (!o || typeof o !== 'object' || Array.isArray(o)) return fail(`${label} must be an object.`)
+    if (typeof o.name !== 'string' || !OVERRIDE_NAME.test(o.name))
+      return fail(
+        `${label} needs a name that starts with "migration:" or "permanent:", then says why. ` +
+          `Example: name: 'migration: legacy pages still use var'` +
+          (o.name ? ` (it has: '${o.name}')` : ''),
+      )
+    if (o.rules && 'prettier/prettier' in o.rules)
+      fail(`${label} (${o.name}) changes prettier/prettier. Formatting is shared: change it in ds-frontend-lint.`)
+
+    const bySeverity = {}
+    for (const [rule, v] of Object.entries(o.rules ?? {})) (bySeverity[severity(v)] ??= []).push(rule)
+    const what = Object.entries(bySeverity).map(([s, rules]) => `${rules.join(', ')} → ${s}`)
+    const globals = Object.keys(o.languageOptions?.globals ?? {})
+    if (globals.length) what.push(`adds globals ${globals.join(', ')}`)
+    const globalIgnore = o.ignores && !o.files && !o.rules
+    const where = o.files ? ` in ${o.files.flat().join(', ')}` : ' in all files'
+    const detail = globalIgnore ? `skips ${o.ignores.join(', ')}` : `${what.join('; ') || 'other settings'}${where}`
+    lines.push(`      ${o.name}`, `        ${detail}`)
+    if (isMigration(o) && o.rules && !o.files)
+      lines.push('        ⚠ applies to the whole project. Scope it to the legacy code with "files".')
+  })
+
+  if (!failed) {
+    const migrations = overrides.filter(isMigration).length
+    ok(`${OVERRIDES_FILE}: ${overrides.length} override(s), ${migrations} for migration`)
+    console.log(lines.join('\n'))
+  }
+}
+
 // ---------------- main ----------------
 
 const cmd = process.argv[2]
 
-if (cmd === 'check') check()
+if (cmd === 'check') await check()
 else {
   console.log(`
 ${HEADER}

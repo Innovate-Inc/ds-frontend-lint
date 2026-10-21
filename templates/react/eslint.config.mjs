@@ -1,2 +1,5 @@
-// Managed by @innovate/ds-frontend-lint. Do not edit. Change rules in ds-frontend-lint instead.
-export { default } from '@innovate/ds-frontend-lint/eslint/react'
+// Managed by @innovate/ds-frontend-lint. Do not edit. Put project overrides in eslint.overrides.mjs.
+import { withOverrides } from '@innovate/ds-frontend-lint/eslint/react'
+import overrides from './eslint.overrides.mjs'
+
+export default withOverrides(overrides)

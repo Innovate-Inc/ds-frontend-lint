@@ -15,6 +15,22 @@ export const core = [
     languageOptions: {
       globals: { ...globals.browser },
     },
+    rules: {
+      'no-unused-vars': ['warn', { argsIgnorePattern: '^_', varsIgnorePattern: '^_' }],
+    },
+  },
+
+  // JavaScript only: the core-rule twins of what typescript-eslint turns on for TS, so JS and TS lint the same
+  {
+    files: ['**/*.{js,mjs,cjs,jsx}'],
+    rules: {
+      'no-var': 'error',
+      'prefer-const': 'error',
+      'prefer-rest-params': 'error',
+      'prefer-spread': 'error',
+      'no-array-constructor': 'error',
+      'no-unused-expressions': 'error',
+    },
   },
 
   // TypeScript only

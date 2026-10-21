@@ -30,6 +30,26 @@ Short rule: **single quotes for code, double for markup, backticks for inserting
 | `no-unused-vars`                | warn   | Prefix a name with `_` to mark it as intentionally unused. |
 | `no-explicit-any`               | warn   | Nudges toward real types without blocking work.            |
 
+### JS and TS lint the same
+
+Many projects mix legacy JS with newer TS, so the same code gets the same result in either. `typescript-eslint` recommended
+turns on a few core rules for TS files. We turn the same rules on for JS files:
+
+| Rule                    | Level | Why                                                     |
+| ----------------------- | ----- | ------------------------------------------------------- |
+| `no-var`                | error | Use `let` or `const`. `npm run fix` converts most.      |
+| `prefer-const`          | error | Shows which values never change. `npm run fix` does it. |
+| `prefer-rest-params`    | error | Use `...args` instead of `arguments`.                   |
+| `prefer-spread`         | error | Use `f(...args)` instead of `f.apply(null, args)`.      |
+| `no-array-constructor`  | error | Use `[1, 2]` instead of `new Array(1, 2)`.              |
+| `no-unused-expressions` | error | A statement that does nothing is usually a bug.         |
+
+Two rules stay TS only: `no-require-imports` (CommonJS JS uses `require` on purpose) and `no-this-alias`
+(`var self = this` is common in legacy JS).
+
+Some core rules are off for TS files because the TypeScript compiler already catches those problems, like `no-undef`.
+They stay on for JS files, which have no compiler.
+
 Config files (`*.config.*`) and `scripts/` get Node globals, like `process`.
 
 ## Angular
