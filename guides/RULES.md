@@ -52,6 +52,10 @@ They stay on for JS files, which have no compiler.
 
 Config files (`*.config.*`) and `scripts/` get Node globals, like `process`.
 
+Test files get the test runner's globals, like `describe`, `it` and `expect`, plus Node globals. This covers Jest, Vitest
+and Jasmine/Karma. Test files are `*.spec.*`, `*.test.*`, anything in `__tests__/` or `__mocks__/`, and setup files like
+`setupTests.js`. Other files still get an error for `expect`, so a test helper used outside tests gets caught.
+
 ## Angular
 
 | Rule                                         | Level  | Why                                                                     |

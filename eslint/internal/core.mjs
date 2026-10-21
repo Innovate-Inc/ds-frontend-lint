@@ -50,4 +50,17 @@ export const core = [
       globals: { ...globals.node },
     },
   },
+
+  // Tests: the runner provides describe, it, expect and friends. Covers Jest, Vitest and Jasmine/Karma.
+  // Only JS needs this: in TS, no-undef is off and the compiler uses @types/jest or @types/jasmine.
+  {
+    files: [
+      '**/*.{spec,test}.{js,mjs,cjs,jsx,ts,mts,cts,tsx}',
+      '**/{__tests__,__mocks__}/**/*.{js,mjs,cjs,jsx,ts,mts,cts,tsx}',
+      '**/{setupTests,test-setup,jest.setup,vitest.setup}.{js,mjs,cjs,ts,mts,cts}',
+    ],
+    languageOptions: {
+      globals: { ...globals.node, ...globals.jest, ...globals.vitest, ...globals.jasmine },
+    },
+  },
 ]

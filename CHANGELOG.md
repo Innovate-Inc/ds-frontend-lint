@@ -7,6 +7,7 @@
   `no-array-constructor` and `no-unused-expressions`, which TS files already had. Legacy JS may show new errors:
   `npm run fix` fixes most `no-var` and `prefer-const`. Use a migration override for the rest.
 - `no-unused-vars` is a warning in JS files too, as it already was in TS.
+- Test files get Jest, Vitest and Jasmine globals. JS tests no longer show `'describe' is not defined` errors.
 - README: setup step 2 now covers removing old ESLint and Prettier packages that ds-frontend-lint already includes.
 - **Projects must copy the new `eslint.config.mjs` from `templates/<stack>/` and add `eslint.overrides.mjs` from
   `templates/common/`.** `verify:ds` fails until they do.

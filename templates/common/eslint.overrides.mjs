@@ -21,6 +21,7 @@ export default []
 /* ------------------------------- Below is an EXAMPLE of a whole override file. -----------------------------*/
 
 // Each element in the array is one override. `files` paths start at the project root.
+// Globs match extensions exactly: `*.ts` does not include `.tsx`. For all TS, use `**/*.{ts,tsx,mts,cts}`.
 
 // export default [
 //   // Turn rules off in legacy JS until it's rewritten.
@@ -37,7 +38,7 @@ export default []
 //   // Turn a rule down to a warning instead of off, so new problems still show.
 //   {
 //     name: 'migration: old services still use any, typing them in tickets ABC-101 to ABC-140',
-//     files: ['src/app/services/legacy/**/*.ts'],
+//     files: ['src/app/services/legacy/**/*.{ts,tsx}'],
 //     rules: {
 //       '@typescript-eslint/no-explicit-any': 'warn',
 //       '@typescript-eslint/no-unused-vars': 'off',
@@ -69,5 +70,3 @@ export default []
 //     ignores: ['src/generated/**'],
 //   },
 // ]
-
-
